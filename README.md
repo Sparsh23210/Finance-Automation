@@ -91,36 +91,68 @@ Dashboard: `http://localhost:5173`
 
 ---
 
-## Test Coverage
+## Test Coverage (59 / 59 Tests Passing)
 
-| Scenario | Test |
+The project includes an automated test suite across three test modules in `backend/tests/`:
+
+### 1. `backend/tests/test_agent.py` (Agent & Workflow Execution — 14 Tests)
+| Scenario | Test Function |
 |---|---|
-| Normal invoice creation | `test_create_invoice_success` |
-| Duplicate prevention (DB constraint) | `test_duplicate_invoice_blocked` |
-| Idempotency key returns existing | `test_idempotency_returns_existing` |
-| Repeated task run idempotency | `test_repeated_task_execution_idempotency` |
-| High-value flagging (>₹50k) | `test_flag_high_value_invoice` |
-| Missing due date | `test_missing_due_date_invoice` |
-| Path traversal blocked | `test_read_document_path_traversal_blocked` |
-| No fabrication of missing fields | `test_extract_fields_no_fabrication` |
-| Threshold below limit | `test_threshold_below_limit` |
-| Threshold above limit | `test_threshold_above_limit` |
-| Invalid approver rejected | `test_invalid_approver_rejected` |
-| Error classification | `test_error_classification_*` |
-| Latest invoice selection by date | `test_select_latest_invoice_by_date` |
-| Missing/invalid invoice dates | `test_select_latest_invoice_missing_date` |
-| PO discrepancy detection & details | `test_compare_invoice_po_discrepancy` |
-| Missing PO reported cleanly | `test_compare_invoice_po_not_found` |
-| Malformed ID rejected (umber/blank) | `test_validate_invoice_number_rejects_corrupted_fragments` |
-| Legitimate multi-vendor ID formats | `test_validate_invoice_number_accepts_valid_business_formats` |
-| PO reference document extraction | `test_extract_invoice_po_reference` |
-| End-to-end reconciliation & flag | `test_po_reconciliation_end_to_end_discrepancy` |
-| Ambiguous vendor → NEEDS_INPUT | `test_plan_after_vendor_ambiguity` |
-| High amount → request_approval | `test_plan_requires_approval_for_high_amount` |
-| Evidence ledger sanitizes secrets | `test_ledger_sanitizes_secrets` |
+| Natural-language invoice task parsing | `test_understand_invoice_task` |
+| Natural-language PO reconciliation task parsing | `test_understand_po_task` |
+| Execution DAG starts with file search | `test_plan_next_action_starts_with_search` |
+| Ambiguous vendor name pauses with `NEEDS_INPUT` | `test_plan_after_vendor_ambiguity` |
+| High-value invoice pauses for approval (>₹50k) | `test_plan_requires_approval_for_high_amount` |
+| Human rejection prevents unauthorized execution | `test_approval_rejected_prevents_execution` |
+| Evidence ledger records and retrieves steps | `test_ledger_record_and_retrieve` |
+| Evidence ledger sanitizes secrets/tokens | `test_ledger_sanitizes_secrets` |
+| Task submission API accepts requests (HTTP 202) | `test_submit_task_returns_202` |
+| Task listing and error handling | `test_list_tasks`, `test_get_task_not_found`, `test_initial_state` |
+| Full end-to-end PO reconciliation & discrepancy flag | `test_po_reconciliation_end_to_end_discrepancy` |
+| Repeated task run idempotency (no duplicate writes) | `test_repeated_task_execution_idempotency` |
 
-To run the automated evaluation suite:
+### 2. `backend/tests/test_finance_api.py` (REST API & Persistence — 17 Tests)
+| Scenario | Test Function |
+|---|---|
+| Vendor listing and search filtering | `test_list_vendors_empty`, `test_list_vendors_with_data`, `test_search_vendors_by_name`, `test_get_vendor_not_found` |
+| Valid invoice creation | `test_create_invoice_success` |
+| Negative amount rejection | `test_create_invoice_negative_amount` |
+| Invalid vendor ID rejection | `test_create_invoice_invalid_vendor` |
+| Unique constraint prevents duplicate invoices | `test_duplicate_invoice_blocked` |
+| Idempotency key returns existing record | `test_idempotency_returns_existing` |
+| Status transitions (pending → approved / flagged) | `test_update_status_success`, `test_update_status_invalid` |
+| Automatic flagging for invoices > ₹50,000 | `test_flag_high_value_invoice` |
+| Purchase order querying & missing PO handling | `test_list_purchase_orders`, `test_get_po_by_id`, `test_po_not_found` |
+| Invoice search by vendor ID | `test_search_invoices_by_vendor` |
+| Minor integer units preserve monetary accuracy | `test_amount_stored_correctly` |
+
+### 3. `backend/tests/test_tools.py` (Tools, Parsers & Ground-Truth Verification — 28 Tests)
+| Scenario | Test Function |
+|---|---|
+| Safe file searching & missing file handling | `test_search_files_finds_invoices`, `test_search_files_no_match` |
+| Document reading & path traversal protection | `test_read_document_success`, `test_read_document_path_traversal_blocked`, `test_read_document_not_found` |
+| Field extraction from text invoices | `test_extract_fields_regex_fallback`, `test_extract_fields_no_fabrication` |
+| PO reference extraction from invoice text | `test_extract_invoice_fields_po_reference` |
+| Missing due date handled gracefully | `test_missing_due_date_invoice` |
+| Invoice number validator rejects malformed text (`umber`, blank) | `test_invoice_number_validation_rejects_malformed` |
+| Invoice number validator accepts valid business IDs | `test_invoice_number_validation_accepts_valid_business_ids` |
+| Select latest invoice by date (not ID or file order) | `test_select_latest_invoice_date_ordering` |
+| Missing/invalid invoice dates handled safely | `test_select_latest_invoice_missing_or_invalid_dates` |
+| Financial approval policy threshold evaluation | `test_threshold_below_limit`, `test_threshold_above_limit`, `test_threshold_exactly_at_limit`, `test_threshold_over_limit` |
+| Approver role permissions | `test_invalid_approver_rejected`, `test_authorized_approver_accepted` |
+| Error classification (retry, duplicate, abort, permission) | `test_error_classification_retry`, `test_error_classification_duplicate`, `test_error_classification_abort`, `test_error_classification_permission` |
+| Clean PO comparison (matching values) | `test_compare_invoice_po_clean` |
+| Discrepancy comparison & variance computation | `test_compare_invoice_po_discrepancy`, `test_compare_invoice_with_po_discrepancy_details` |
+| Missing purchase order reported cleanly without fabricating data | `test_get_purchase_order_missing_po` |
+| Independent ground-truth database verification | `test_verify_invoice_pass` |
+
+---
+
+## Running the Automated Test & Evaluation Suite
+
+Execute the evaluation script from the repository root:
 ```bash
 python scripts/evaluate.py
 ```
-*(All 59 unit, integration, and regression tests pass at 100%).*
+*(Runs pytest with programmatic JSON metrics; all 59 tests pass 100%).*
+
