@@ -1,0 +1,6 @@
+PO Number: PO-GLOB-2024-010
+Vendor: Global Tech Solutions
+PO Date: 2024-02-15
+Amount: INR 28,000.00
+Description: Cloud hosting Feb 2024
+Status: Closed

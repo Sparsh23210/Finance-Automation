@@ -1,0 +1,6 @@
+Invoice Number: INV-RAPID-2024-007
+From: Rapid Logistics Co.
+Date: 2024-01-28
+Amount: INR 15,500.00
+Description: Courier and logistics — January 2024
+NOTE: Due date missing from this invoice — requires follow-up with vendor.

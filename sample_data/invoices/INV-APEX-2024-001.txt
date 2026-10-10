@@ -1,0 +1,8 @@
+Invoice Number: INV-APEX-2024-001
+From: Apex Supplies Ltd.
+Date: 2024-01-15
+Due Date: 2024-02-14
+Amount: INR 45,000.00
+Description: Office stationery and supplies for Q1 2024
+GSTIN: 27AABCA1234B1Z5
+Contact: billing@apexsupplies.com

@@ -1,0 +1,6 @@
+PO Number: PO-APEX-2024-001
+Vendor: Apex Supplies Ltd.
+PO Date: 2024-01-10
+Amount: INR 45,000.00
+Description: Office stationery Q1 2024
+Status: Closed

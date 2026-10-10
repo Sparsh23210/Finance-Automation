@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "Apex Supplies Ltd.",
+    "code": "APEX001",
+    "contact_email": "billing@apexsupplies.com",
+    "gstin": "27AABCA1234B1Z5",
+    "address": "12, Industrial Estate, Pune, Maharashtra 411019",
+    "is_active": true
+  },
+  {
+    "id": 2,
+    "name": "Apex Supply House",
+    "code": "APEX002",
+    "contact_email": "accounts@apexsupplyhouse.in",
+    "gstin": "27BBBCA5678C2Z6",
+    "address": "45, Shivaji Nagar, Pune, Maharashtra 411005",
+    "is_active": true,
+    "_note": "Similar name to APEX001 — tests ambiguous vendor resolution"
+  },
+  {
+    "id": 3,
+    "name": "Global Tech Solutions",
+    "code": "GLOB001",
+    "contact_email": "finance@globaltechsol.com",
+    "gstin": "06CCCCA9012D3Z7",
+    "address": "78, Sector 14, Gurugram, Haryana 122001",
+    "is_active": true
+  },
+  {
+    "id": 4,
+    "name": "Rapid Logistics Co.",
+    "code": "RAPID01",
+    "contact_email": "billing@rapidlogistics.in",
+    "gstin": "29DDDDB3456E4Z8",
+    "address": "22, Whitefield Road, Bengaluru, Karnataka 560066",
+    "is_active": true
+  },
+  {
+    "id": 5,
+    "name": "Zenith Office Mart",
+    "code": "ZENTH01",
+    "contact_email": "ar@zenithoffice.com",
+    "gstin": "33EEEEC7890F5Z9",
+    "address": "99, Anna Salai, Chennai, Tamil Nadu 600002",
+    "is_active": true
+  }
+]

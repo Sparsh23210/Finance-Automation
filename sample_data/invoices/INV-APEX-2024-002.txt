@@ -1,0 +1,8 @@
+Invoice Number: INV-APEX-2024-002
+From: Apex Supplies Ltd.
+Date: 2024-03-10
+Due Date: 2024-04-09
+Amount: INR 72,500.00
+Description: IT equipment — 5 laptops and accessories
+GSTIN: 27AABCA1234B1Z5
+NOTE: High-value purchase — requires manager approval per policy.

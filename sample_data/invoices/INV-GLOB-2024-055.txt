@@ -1,0 +1,7 @@
+Invoice Number: INV-GLOB-2024-055
+From: Global Tech Solutions
+Date: 2024-02-20
+Due Date: 2024-03-21
+Amount: INR 28,000.00
+Description: Cloud hosting services — February 2024
+PO Reference: PO-GLOB-2024-010
